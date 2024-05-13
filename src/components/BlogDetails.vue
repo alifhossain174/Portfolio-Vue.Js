@@ -2,7 +2,10 @@
 <section class="blog-wrapper sect-pt4" id="blog">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-lg-8" v-if="isLoading">
+                <h1 class="text-center mb-5">Loading...</h1>
+            </div>
+            <div class="col-md-8" v-else>
                 <div class="post-box">
                     <div class="post-thumb">
                         <img :src="'http://127.0.0.1:8000/'+blog.image" class="img-fluid" alt="">
@@ -38,6 +41,7 @@ export default {
     name: 'BlogDetails',
     data() {
         return {
+            isLoading: true,
             blog: {}
         }
     },
@@ -46,6 +50,7 @@ export default {
         let result = await axios.get("http://127.0.0.1:8000/api/blog/details/"+blogSlug);
         console.log(result.data.data);
         this.blog = result.data.data;
+        this.isLoading = false;
     }
 }
 </script>
