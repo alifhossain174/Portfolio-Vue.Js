@@ -9,16 +9,16 @@
           <nav id="navbar" class="navbar">
             <ul>
               <li>
-                <router-link class="nav-link scrollto active" to="/">Home</router-link>
+                <router-link class="nav-link scrollto" :class="{ active: isRouteActive('HomePage') }" to="/">Home</router-link>
               </li>
               <li>
-                <router-link class="nav-link scrollto" to="/about">About</router-link>
+                <router-link class="nav-link scrollto" :class="{ active: isRouteActive('AboutUs') }" to="/about">About</router-link>
               </li>
               <li>
-                <router-link class="nav-link scrollto" to="/service">Services</router-link>
+                <router-link class="nav-link scrollto" :class="{ active: isRouteActive('ServiceSection') }" to="/service">Services</router-link>
               </li>
               <li>
-                <router-link class="nav-link scrollto" to="/contact">Contact</router-link>
+                <router-link class="nav-link scrollto" :class="{ active: isRouteActive('ContactForm') }" to="/contact">Contact</router-link>
               </li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
@@ -31,6 +31,11 @@
 <script>
 export default {
   name: 'TopHeader',
+  methods: {
+    isRouteActive(routeName) {
+      return this.$route.name === routeName;
+    },
+  },
 }
 </script>
 

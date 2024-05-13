@@ -1,6 +1,6 @@
 <template>
-<HeroSlider></HeroSlider>
-<BlogsSection></BlogsSection>
+    <HeroSlider></HeroSlider>
+    <BlogsSection></BlogsSection>
 </template>
 
 <script>

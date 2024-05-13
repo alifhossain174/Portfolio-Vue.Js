@@ -15,45 +15,55 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+
+            <div class="col-md-4" v-for="blog in blogs" :key="blog.id">
                 <div class="card card-blog">
                     <div class="card-img">
-                        <a href="blog-single.html"><img src="assets/img/post-1.jpg" alt="" class="img-fluid"></a>
+                        <router-link :to="'/blog/' + blog.slug"><img :src="'http://127.0.0.1:8000/'+blog.image" alt="" class="img-fluid"></router-link>
                     </div>
                     <div class="card-body">
                         <div class="card-category-box">
                             <div class="card-category">
-                                <h6 class="category">Travel</h6>
+                                <h6 class="category">{{ blog.blog_category_name }}</h6>
                             </div>
                         </div>
-                        <h3 class="card-title"><a href="blog-single.html">See more ideas about Travel</a></h3>
+                        <h3 class="card-title"><router-link :to="'/blog/' + blog.slug">{{ blog.title }}</router-link></h3>
                         <p class="card-description">
-                            Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent sapien massa, convallis
-                            a pellentesque nec,
-                            egestas non nisi.
+                            {{ blog.short_description }}
                         </p>
                     </div>
                     <div class="card-footer">
                         <div class="post-author">
                             <a href="#">
                                 <img src="assets/img/testimonial-2.jpg" alt="" class="avatar rounded-circle">
-                                <span class="author">Morgan Freeman</span>
+                                <span class="author">Admin</span>
                             </a>
                         </div>
                         <div class="post-date">
-                            <span class="bi bi-clock"></span> 10 min
+                            <span class="bi bi-clock"></span> {{ blog.created_at }}
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-    name: 'BlogsSection'
+    name: 'BlogsSection',
+    data(){
+        return {
+            blogs: [],
+        }
+    },
+    async mounted() {
+        let results = await axios.get("http://127.0.0.1:8000/api/get/all/blogs");
+        this.blogs = results.data.data
+    },
 }
 </script>
 

@@ -3,6 +3,7 @@ import ServiceSection from './components/ServiceSection.vue';
 import HomePage from './components/HomePage.vue';
 import AboutUs from './components/AboutUs.vue';
 import ContactForm from './components/ContactForm.vue';
+import BlogDetails from './components/BlogDetails.vue';
 
 const routes=[
     {
@@ -24,6 +25,12 @@ const routes=[
         name: 'ContactForm',
         path: '/contact',
         component: ContactForm,
+    },
+    { 
+        name: 'BlogDetails',
+        path: '/blog/:id',
+        component: BlogDetails, 
+        props: true 
     }
 ]
 
