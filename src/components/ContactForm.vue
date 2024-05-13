@@ -14,26 +14,26 @@
                                     </h5>
                                 </div>
                                 <div>
-                                    <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                                    <form class="php-email-form">
                                         <div class="row">
                                             <div class="col-md-12 mb-3">
                                                 <div class="form-group">
-                                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                                    <input type="text" v-model="name" class="form-control" placeholder="Your Name">
                                                 </div>
                                             </div>
                                             <div class="col-md-12 mb-3">
                                                 <div class="form-group">
-                                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                                                    <input type="email" v-model="email" class="form-control" placeholder="Your Email">
                                                 </div>
                                             </div>
                                             <div class="col-md-12 mb-3">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                                                    <input type="text" v-model="company_name" class="form-control" placeholder="Company Name">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                                                    <textarea class="form-control" v-model="message" rows="5" placeholder="Message"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-12 text-center my-3">
@@ -42,7 +42,7 @@
                                                 <div class="sent-message">Your message has been sent. Thank you!</div>
                                             </div>
                                             <div class="col-md-12 text-center">
-                                                <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
+                                                <button type="button" class="button button-a button-big button-rouded" @click="sendMessage()">Send Message</button>
                                             </div>
                                         </div>
                                     </form>
@@ -86,7 +86,38 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-    name: 'ContactForm'
+    name: 'ContactForm',
+    data(){
+        return{
+            name: '',
+            email: '',
+            company_name: '',
+            message: '',
+        }
+    },
+    methods: {
+        sendMessage(){
+            axios.post("http://127.0.0.1:8000/api/submit/contact/us/request", {
+
+                name: this.name, 
+                email: this.email, 
+                company_name: this.company_name,
+                message: this.message
+
+            }).then((result) => {
+
+                alert(result.data.message);
+                this.name = '';
+                this.email = '';
+                this.company_name = '';
+                this.message = '';
+
+            }).catch((err) => {
+                console.log(err)
+            });
+        }
+    },
 }
 </script>
